@@ -1,0 +1,33 @@
+{
+  "name": "Knowledge Challenge Quiz - e&",
+  "short_name": "Quiz Challenge",
+  "description": "Interactive telecom knowledge quiz game with single player vs AI and multiplayer modes",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#DC2626",
+  "theme_color": "#DC2626",
+  "scope": "/",
+  "categories": ["games", "education"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192' fill='%23DC2626'%3E%3Crect width='192' height='192' rx='24' fill='%23DC2626'/%3E%3Cpath d='M96 48c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V64c0-8.8-7.2-16-16-16z' fill='white'/%3E%3Cpath d='M64 80c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16s16-7.2 16-16V96c0-8.8-7.2-16-16-16z' fill='white'/%3E%3Cpath d='M128 80c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16s16-7.2 16-16V96c0-8.8-7.2-16-16-16z' fill='white'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23DC2626'%3E%3Crect width='512' height='512' rx='64' fill='%23DC2626'/%3E%3Cpath d='M256 128c-23.5 0-42.7 19.2-42.7 42.7v170.6c0 23.5 19.2 42.7 42.7 42.7s42.7-19.2 42.7-42.7V170.7c0-23.5-19.2-42.7-42.7-42.7z' fill='white'/%3E%3Cpath d='M170.7 213.3c-23.5 0-42.7 19.2-42.7 42.7v85.3c0 23.5 19.2 42.7 42.7 42.7s42.7-19.2 42.7-42.7V256c0-23.5-19.2-42.7-42.7-42.7z' fill='white'/%3E%3Cpath d='M341.3 213.3c-23.5 0-42.7 19.2-42.7 42.7v85.3c0 23.5 19.2 42.7 42.7 42.7s42.7-19.2 42.7-42.7V256c0-23.5-19.2-42.7-42.7-42.7z' fill='white'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}

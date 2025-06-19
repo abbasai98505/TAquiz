@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Challenge Quiz - e&</title>
+    <meta name="description" content="Interactive 2-player telecom knowledge quiz game with single player vs AI mode">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#DC2626">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Quiz Challenge">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512x512.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading spinner -->
+        <div id="loading" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Loading Quiz...</p>
+        </div>
+        
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen">
+            <!-- e& Logo -->
+            <img src="https://www.eand.com/content/dam/eand/assets/img/etand-icons/logo-homepage.png" 
+                 alt="e& Logo" class="eand-logo">
+            
+            <!-- Background decoration -->
+            <div class="bg-decoration">
+                <div class="bg-blob bg-blob-1"></div>
+                <div class="bg-blob bg-blob-2"></div>
+            </div>
+            
+            <!-- Theme toggle -->
+            <button id="theme-toggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="container">
+                <!-- Logo and branding -->
+                <div class="branding">
+                    <div class="app-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h1>Knowledge Challenge</h1>
+                    <p>Test your expertise</p>
+                </div>
+                
+                <!-- Game Mode Selection -->
+                <div class="game-mode-section">
+                    <h2>Choose Game Mode</h2>
+                    <div class="game-mode-buttons">
+                        <button class="game-mode-btn active" data-mode="single">
+                            <i class="fas fa-robot"></i>
+                            <div class="mode-title">Single Player</div>
+                            <div class="mode-subtitle">Play vs Computer</div>
+                        </button>
+                        <button class="game-mode-btn" data-mode="multi">
+                            <i class="fas fa-users"></i>
+                            <div class="mode-title">Two Players</div>
+                            <div class="mode-subtitle">Play with friend</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Game features -->
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <p>vs AI</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <p>Timed Quiz</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <p>Leaderboard</p>
+                    </div>
+                </div>
+                
+                <!-- Player input form -->
+                <div class="player-inputs">
+                    <h2 id="input-title">Enter Your Name</h2>
+                    
+                    <div class="input-card">
+                        <label><i class="fas fa-user"></i> Player 1</label>
+                        <input type="text" id="player1-name" placeholder="Enter first player name" maxlength="16">
+                    </div>
+                    
+                    <div class="input-card" id="player2-input" style="display: none;">
+                        <label><i class="fas fa-user"></i> Player 2</label>
+                        <input type="text" id="player2-name" placeholder="Enter second player name" maxlength="16">
+                    </div>
+                </div>
+                
+                <button id="start-game" class="start-btn" disabled>
+                    <i class="fas fa-play"></i> Start Game
+                </button>
+            </div>
+        </div>
+        
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <!-- e& Logo -->
+            <img src="https://www.eand.com/content/dam/eand/assets/img/etand-icons/logo-homepage.png" 
+                 alt="e& Logo" class="eand-logo">
+            
+            <div class="container">
+                <!-- Game header with scores -->
+                <div class="game-header">
+                    <div class="player-score">
+                        <div class="score-circle">
+                            <svg class="progress-ring">
+                                <circle cx="32" cy="32" r="28" class="progress-bg"></circle>
+                                <circle cx="32" cy="32" r="28" class="progress-fill" id="player1-progress"></circle>
+                            </svg>
+                            <span id="player1-score">0</span>
+                        </div>
+                        <p id="player1-display">Player 1</p>
+                    </div>
+                    
+                    <div class="vs-indicator">
+                        <span id="vs-text">VS</span>
+                    </div>
+                    
+                    <div class="player-score">
+                        <div class="score-circle">
+                            <svg class="progress-ring">
+                                <circle cx="32" cy="32" r="28" class="progress-bg"></circle>
+                                <circle cx="32" cy="32" r="28" class="progress-fill" id="player2-progress"></circle>
+                            </svg>
+                            <span id="player2-score">0</span>
+                        </div>
+                        <p id="player2-display">Player 2</p>
+                    </div>
+                </div>
+                
+                <!-- Progress bar -->
+                <div class="progress-section">
+                    <div class="progress-info">
+                        <span>Question <span id="current-question">1</span> of <span id="total-questions">20</span></span>
+                        <span id="current-player-indicator">Player 1's Turn</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+                
+                <!-- Timer -->
+                <div class="timer-section">
+                    <div class="timer-circle">
+                        <svg class="timer-ring">
+                            <circle cx="50" cy="50" r="45" class="timer-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="timer-progress" id="timer-progress"></circle>
+                        </svg>
+                        <span id="timer-text">30</span>
+                    </div>
+                </div>
+                
+                <!-- Question -->
+                <div class="question-section">
+                    <h3 id="question-text">Loading question...</h3>
+                    <div id="choices-container" class="choices">
+                        <!-- Choices will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <button id="next-question" class="next-btn hidden">
+                    Next Question <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen hidden">
+            <!-- e& Logo -->
+            <img src="https://www.eand.com/content/dam/eand/assets/img/etand-icons/logo-homepage.png" 
+                 alt="e& Logo" class="eand-logo">
+            
+            <div class="container">
+                <!-- Celebration header -->
+                <div class="celebration">
+                    <div class="trophy-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h1 id="result-title">Game Complete!</h1>
+                    <p id="result-subtitle">Great job!</p>
+                </div>
+                
+                <!-- Final scores -->
+                <div class="final-scores">
+                    <div class="final-score">
+                        <h3 id="final-player1-name">Player 1</h3>
+                        <div class="score-display">
+                            <span id="final-player1-score">0</span>
+                            <span class="score-total">/ 20</span>
+                        </div>
+                        <p id="final-player1-accuracy">0% Accuracy</p>
+                    </div>
+                    
+                    <div class="final-score">
+                        <h3 id="final-player2-name">Player 2</h3>
+                        <div class="score-display">
+                            <span id="final-player2-score">0</span>
+                            <span class="score-total">/ 20</span>
+                        </div>
+                        <p id="final-player2-accuracy">0% Accuracy</p>
+                    </div>
+                </div>
+                
+                <!-- Action buttons -->
+                <div class="result-actions">
+                    <button id="play-again" class="play-again-btn">
+                        <i class="fas fa-redo"></i> Play Again
+                    </button>
+                    <button id="share-result" class="share-btn">
+                        <i class="fas fa-share"></i> Share Result
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>
